@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import EditToDo from "./editToDo";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState(null);
-  const [isEdit, setIsEdit] = useState(false);
+  // const [text, setText] = useState("");
   const token = localStorage.getItem("token");
   useEffect(() => {
     const postData = async () => {
@@ -40,18 +41,14 @@ const Tasks = () => {
     };
     removeData();
   };
-  const editHandler = () => {};
+
   return (
     <>
       {tasks ? (
         tasks.map((item) => {
           return (
             <div key={item.id}>
-              <p>
-                {item.title}
-                <button onClick={() => removeTask(item.id)}>удалить</button>
-                <button onClick={() => editHandler(item.id)}>изменит</button>
-              </p>
+              <EditToDo item={item} removeTask={removeTask} />
             </div>
           );
         })
